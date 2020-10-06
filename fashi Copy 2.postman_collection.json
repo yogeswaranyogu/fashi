@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "5b598a56-071b-4003-90f2-26319ec21589",
+		"name": "fashi Copy 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56a92f4b-da07-4460-a5cf-fd1ca330b01c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f33f6c92-776d-40bf-8a29-8c7ca900ec60",
+						"exec": [
+							"pm.request.headers.add({\r",
+							"key: 'Content-Type',\r",
+							"value: 'application/json'\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"pit@pit.com\",\r\n    \"password\": \"asdh1233\"\r\n    \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8000/auth/login",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "817f1287-7de5-451e-83d5-0a204283246f",
+						"exec": [
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "96e820f6-f9c1-4b3d-a7ed-231adb7000d1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"pit@pit.com\",\r\n    \"name\": \"ashokk\",\r\n    \"password\": \"asdh1233\",\r\n    \"gender\": \"Male\",\r\n    \"dob\": \"22-03-1990\",\r\n    \"mobileNo\": \"9090909090\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8000/auth/signup",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b32efc1-66d1-4c48-b216-9840f0b784b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"check if a userwith  is kannada\",function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.except(jsonData[1].language).to.eql(\"kannada\");\r",
+							"});\r",
+							"pm.test(\"Body matches kannada\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_kannada\");\r",
+							"});\r",
+							"pm.test(\"Body is response_tvfashion\", function () {\r",
+							"    pm.response.to.have.body(\"response_tvfashion\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpdEBwaXQuY29tIiwidXNlcklkIjoiNWY3MzA1OWFhNmM3NDQ3MjVhMmFhMTU0IiwiaWF0IjoxNjAxODkxMzExLCJleHAiOjE2MDE4OTQ5MTF9.dCHjg3jrsDYHjm-CaVrN6decTzMD1lbC_3__jinGLaI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://206.189.140.174:8000/dashboard/main",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8000",
+					"path": [
+						"dashboard",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "channel list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d6eec53-2914-41e0-b5f5-9d829fc63891",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpdEBwaXQuY29tIiwidXNlcklkIjoiNWY3MzA1OWFhNmM3NDQ3MjVhMmFhMTU0IiwiaWF0IjoxNjAxODkxMzExLCJleHAiOjE2MDE4OTQ5MTF9.dCHjg3jrsDYHjm-CaVrN6decTzMD1lbC_3__jinGLaI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"languageId\": \"1\",\r\n    \"langugename\": \"Kannada\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8001/tv/channellist",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8001",
+					"path": [
+						"tv",
+						"channellist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "showslist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c814b048-c7be-40bd-b8ea-96c0d3c5bdd7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpdEBwaXQuY29tIiwidXNlcklkIjoiNWY3MzA1OWFhNmM3NDQ3MjVhMmFhMTU0IiwiaWF0IjoxNjAxODg3NDI5LCJleHAiOjE2MDE4OTEwMjl9.6FOIXwrilYPBIklZ0ng2qWYUNcgLmC_tAvTwHz2RjE0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"channelId\": \"1\",\r\n    \"channelname\": \"zee kannada\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8001/tv/showslist",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8001",
+					"path": [
+						"tv",
+						"showslist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tvserialepisode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd3b7dd-cc36-4ba4-9bf3-94aa11d7a67b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpdEBwaXQuY29tIiwidXNlcklkIjoiNWY3MzA1OWFhNmM3NDQ3MjVhMmFhMTU0IiwiaWF0IjoxNjAxODg3NDI5LCJleHAiOjE2MDE4OTEwMjl9.6FOIXwrilYPBIklZ0ng2qWYUNcgLmC_tAvTwHz2RjE0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"putta\",\r\n    \"language\": \"Kannada\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8001/tvSerial/tvserialepisode",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8001",
+					"path": [
+						"tvSerial",
+						"tvserialepisode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tvproducts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1408cd99-38d7-4afb-8740-38d71253350e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"key is present\",function(){\r",
+							"pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpdEBwaXQuY29tIiwidXNlcklkIjoiNWY3MzA1OWFhNmM3NDQ3MjVhMmFhMTU0IiwiaWF0IjoxNjAxODg3NDI5LCJleHAiOjE2MDE4OTEwMjl9.6FOIXwrilYPBIklZ0ng2qWYUNcgLmC_tAvTwHz2RjE0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serialname\": \"putta\",\r\n    \"episodeno\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://206.189.140.174:8001/product/tvproducts",
+					"protocol": "http",
+					"host": [
+						"206",
+						"189",
+						"140",
+						"174"
+					],
+					"port": "8001",
+					"path": [
+						"product",
+						"tvproducts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3e652383-8492-45d0-aeed-c09f11b9bbcf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a5200289-427c-4ea3-966f-8e50700cd0bf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "24bc4c69-b0fe-48d0-9353-494d79a787a5",
+			"key": "yoyo",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
